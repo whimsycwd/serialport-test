@@ -1,6 +1,6 @@
 var SerialPort = require('serialport');
 const Readline = SerialPort.parsers.Readline;
-var port = new SerialPort('/dev/tty.wchusbserial141110', {
+var port = new SerialPort('/dev/tty.wchusbserial145110', {
     baudRate: 115200
 });
 
@@ -40,6 +40,7 @@ parser.on('data', function (data) {
         err_cnt++;
         console.log('err hit');
         console.log('err cnt: ' + err_cnt);
+        console.log(data);
     }
     send_flag = true;
 });
@@ -70,14 +71,14 @@ function intervalFunc() {
         port.write(content);
         send_flag = false;
 
-        if (count == 1000000) {
+        if (count == 100000000) {
             clearInterval(this);
         }
 
-        if (count % 100  == 0) {
+        if (count % 1000  == 0) {
             console.log('total cnt: ' + total_cnt);
             console.log('err cnt: ' + err_cnt);
         }
     }
 }
-setInterval(intervalFunc, 1);
+setInterval(intervalFunc, 10);
